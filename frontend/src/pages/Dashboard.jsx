@@ -79,7 +79,7 @@ export default function Dashboard() {
         <div className="bg-slate-800 rounded-xl p-6 border border-slate-700 mb-6">
           <h2 className="text-base font-semibold text-white mb-4">Investment Activity Over Time</h2>
           <ResponsiveContainer width="100%" height={280}>
-            <AreaChart data={data.valueHistory} margin={{ top: 4, right: 4, left: 0, bottom: 0 }}>
+            <AreaChart data={data.valueHistory} margin={{ top: 6, right: 5, left: 0, bottom: 0 }}>
               <defs>
                 <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%"  stopColor="#3b82f6" stopOpacity={0.3} />
