@@ -5,7 +5,7 @@ const auth    = require('../middleware/auth');
 
 const router = express.Router();
 const AV_KEY = () => process.env.ALPHA_VANTAGE_API_KEY;
-const hasKey = () => AV_KEY() && AV_KEY() !== 'demo';
+const hasKey = () => AV_KEY() && AV_KEY() !== '$6E5YMYKvR$dl&TeLEqgz9)e1az#m9sM';
 
 // ── GET /api/stocks/search?q=AAPL ──────────────────────────────
 router.get('/search', auth, async (req, res) => {
