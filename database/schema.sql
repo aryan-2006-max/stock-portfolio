@@ -6,7 +6,7 @@ USE stock_portfolio;
 
 -- Users
 CREATE TABLE IF NOT EXISTS users (
-  id            INT AUTO_INCREMENT PRIMARY KEY,
+  user_id            INT AUTO_INCREMENT PRIMARY KEY,
   username      VARCHAR(50)  NOT NULL UNIQUE,
   email         VARCHAR(100) NOT NULL UNIQUE,
   password_hash VARCHAR(255) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Stocks (master list + price cache)
 CREATE TABLE IF NOT EXISTS stocks (
-  id            INT AUTO_INCREMENT PRIMARY KEY,
+  stocks_id            INT AUTO_INCREMENT PRIMARY KEY,
   symbol        VARCHAR(10)  NOT NULL UNIQUE,
   company_name  VARCHAR(100) NOT NULL,
   current_price DECIMAL(10,2) DEFAULT 0.00,
@@ -24,16 +24,16 @@ CREATE TABLE IF NOT EXISTS stocks (
 
 -- Portfolios (one per user by default)
 CREATE TABLE IF NOT EXISTS portfolios (
-  id         INT AUTO_INCREMENT PRIMARY KEY,
+  portfolio_id         INT AUTO_INCREMENT PRIMARY KEY,
   user_id    INT         NOT NULL,
-  name       VARCHAR(100) NOT NULL DEFAULT 'My Portfolio',
+  portfolio_name       VARCHAR(100) NOT NULL DEFAULT 'My Portfolio',
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- Holdings (current position per stock)
 CREATE TABLE IF NOT EXISTS holdings (
-  id             INT AUTO_INCREMENT PRIMARY KEY,
+  holding_id             INT AUTO_INCREMENT PRIMARY KEY,
   portfolio_id   INT             NOT NULL,
   stock_id       INT             NOT NULL,
   quantity       DECIMAL(10,4)   NOT NULL DEFAULT 0,
@@ -45,20 +45,20 @@ CREATE TABLE IF NOT EXISTS holdings (
 
 -- Transactions (full buy/sell log)
 CREATE TABLE IF NOT EXISTS transactions (
-  id        INT AUTO_INCREMENT PRIMARY KEY,
+  transactions_id        INT AUTO_INCREMENT PRIMARY KEY,
   user_id   INT             NOT NULL,
   stock_id  INT             NOT NULL,
-  type      ENUM('BUY','SELL') NOT NULL,
+  transactions_type      ENUM('BUY','SELL') NOT NULL,
   quantity  DECIMAL(10,4)   NOT NULL,
   price     DECIMAL(10,2)   NOT NULL,
-  timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  transactions_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id)  REFERENCES users(id)  ON DELETE CASCADE,
   FOREIGN KEY (stock_id) REFERENCES stocks(id) ON DELETE CASCADE
 );
 
 -- Watchlist
 CREATE TABLE IF NOT EXISTS watchlist (
-  id        INT AUTO_INCREMENT PRIMARY KEY,
+  watchlist_id        INT AUTO_INCREMENT PRIMARY KEY,
   user_id   INT NOT NULL,
   stock_id  INT NOT NULL,
   added_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
