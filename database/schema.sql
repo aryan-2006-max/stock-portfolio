@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Stocks (master list + price cache)
 CREATE TABLE IF NOT EXISTS stocks (
-  stocks_id            INT AUTO_INCREMENT PRIMARY KEY,
+  stock_id            INT AUTO_INCREMENT PRIMARY KEY,
   symbol        VARCHAR(10)  NOT NULL UNIQUE,
   company_name  VARCHAR(100) NOT NULL,
   current_price DECIMAL(10,2) DEFAULT 0.00,
@@ -45,13 +45,13 @@ CREATE TABLE IF NOT EXISTS holdings (
 
 -- Transactions (full buy/sell log)
 CREATE TABLE IF NOT EXISTS transactions (
-  transactions_id        INT AUTO_INCREMENT PRIMARY KEY,
+  transaction_id        INT AUTO_INCREMENT PRIMARY KEY,
   user_id   INT             NOT NULL,
   stock_id  INT             NOT NULL,
-  transactions_type      ENUM('BUY','SELL') NOT NULL,
+  transaction_type      ENUM('BUY','SELL') NOT NULL,
   quantity  DECIMAL(10,4)   NOT NULL,
   price     DECIMAL(10,2)   NOT NULL,
-  transactions_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  transaction_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (user_id)  REFERENCES users(id)  ON DELETE CASCADE,
   FOREIGN KEY (stock_id) REFERENCES stocks(id) ON DELETE CASCADE
 );
